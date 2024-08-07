@@ -5,6 +5,7 @@ import { bubbless } from "../sortingAlgorithms/bubbleSort.js";
 import { HeapSort } from "../sortingAlgorithms/heapSort.js";
 import { QuickSort } from "../sortingAlgorithms/quicksort.js";
 import { InsertionSort } from "../sortingAlgorithms/InsertionSort.js";
+import { SelectionSort } from "../sortingAlgorithms/SelectionSort.js";
 let ts = 0;
 let sss = 0.5;
 let NUMBER_OF_ARRAY_BARS = 165;
@@ -74,11 +75,9 @@ export default class SortingVisualizer extends React.Component {
     document.getElementById("Time_Best").innerText = "Ω(N log N)";
     document.getElementById("Space_Worst").innerText = "O(log N)";
     clearTimeout();
-    console.log("a");
     this.disable_buttons();
     const animations = QuickSort(this.state.array);
     for (let i = 0; i < animations.length; i++) {
-      console.log("d");
       const arrayBars = document.getElementsByClassName("array-bar");
       const [bar1, bar2, bar1height, bar2height] = animations[i];
       const bar1style = arrayBars[bar1].style;
@@ -103,7 +102,6 @@ export default class SortingVisualizer extends React.Component {
     clearTimeout();
     this.disable_buttons();
     const animations = HeapSort(this.state.array);
-    console.log(animations);
     for (let i = 0; i < animations.length; i++) {
       const arrayBars = document.getElementsByClassName("array-bar");
       const [bar1, bar2, bar1height, bar2height] = animations[i];
@@ -150,11 +148,33 @@ export default class SortingVisualizer extends React.Component {
     document.getElementById("Time_Best").innerText = "Ω(N)";
     document.getElementById("Space_Worst").innerText = "O(1)";
     clearTimeout();
-    console.log("a");
     this.disable_buttons();
     const animations = InsertionSort(this.state.array);
     for (let i = 0; i < animations.length; i++) {
-      console.log("d");
+      const arrayBars = document.getElementsByClassName("array-bar");
+      const [bar1, bar2, bar1height, bar2height] = animations[i];
+      const bar1style = arrayBars[bar1].style;
+      const bar2style = arrayBars[bar2].style;
+      setTimeout(() => {
+        bar1style.height = `${bar2height}px`;
+        bar2style.height = `${bar1height}px`;
+      }, (ts += 15 * sss));
+    }
+    // ts = 0;
+    clearTimeout();
+    this.enable_buttons();
+  }
+
+  selectionSort() {
+    ts = 0;
+    document.getElementById("Time_Worst").innerText = "O(N^2)";
+    document.getElementById("Time_Average").innerText = "Θ(N^2)";
+    document.getElementById("Time_Best").innerText = "Ω(N)";
+    document.getElementById("Space_Worst").innerText = "O(1)";
+    clearTimeout();
+    this.disable_buttons();
+    const animations = SelectionSort(this.state.array);
+    for (let i = 0; i < animations.length; i++) {
       const arrayBars = document.getElementsByClassName("array-bar");
       const [bar1, bar2, bar1height, bar2height] = animations[i];
       const bar1style = arrayBars[bar1].style;
@@ -219,6 +239,7 @@ export default class SortingVisualizer extends React.Component {
           <button onClick={() => this.quickSort()}>Quick Sort</button>
           <button onClick={() => this.heapSort()}>Heap Sort</button>
           <button onClick={() => this.insertionSort()}>Insertion Sort</button>
+          <button onClick={() => this.selectionSort()}>Selection Sort</button>
           <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
         </div>
         <br></br>

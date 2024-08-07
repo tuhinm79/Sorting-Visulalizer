@@ -1,5 +1,4 @@
 export const InsertionSort = (array) => {
-  console.log(array);
   const length = array.length;
   let animations = [];
   for (let i = 0; i < length - 1; ++i) {
@@ -12,6 +11,5 @@ export const InsertionSort = (array) => {
       --j;
     }
   }
-  console.log(array);
   return animations;
 };

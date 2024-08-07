@@ -10,8 +10,7 @@ export const bubbless = (array) => {
         animations.push([j + 1, j, sortedArray[j], sortedArray[j + 1]]);
       }
     }
-    let m = sortedArray.length - i - 1;
-    console.log(m);
+    // let m = sortedArray.length - i - 1;
   }
   return animations;
 };

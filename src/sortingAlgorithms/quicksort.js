@@ -3,6 +3,7 @@ export const QuickSort = (array) => {
   let animations = [];
   divider(animations, array, 0, length - 1);
   return animations;
+  //hii
 };
 
 const divider = (animations, array, start, end) => {
