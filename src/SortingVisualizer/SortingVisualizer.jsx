@@ -250,7 +250,7 @@ export default class SortingVisualizer extends React.Component {
             className="sortbutt"
             onClick={() => this.handleSortSelection(algor)}
           >
-            SORT
+            Start Sorting
           </button>
           {/* <button onClick={() => this.mergeSort()}>Merge Sort</button>
           <button onClick={() => this.quickSort()}>Quick Sort</button>
