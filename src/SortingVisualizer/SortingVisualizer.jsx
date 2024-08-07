@@ -8,17 +8,14 @@ import { InsertionSort } from "../sortingAlgorithms/InsertionSort.js";
 import { SelectionSort } from "../sortingAlgorithms/SelectionSort.js";
 let ts = 0;
 let sss = 0.5;
+let algor;
 let NUMBER_OF_ARRAY_BARS = 165;
 const PRIMARY_COLOR = "turquoise";
 
 export default class SortingVisualizer extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      array: [],
-    };
-  }
+  state = {
+    array: [],
+  };
 
   componentDidMount() {
     this.resetArray();
@@ -34,7 +31,7 @@ export default class SortingVisualizer extends React.Component {
   }
 
   mergeSort() {
-    ts=0;
+    ts = 0;
     document.getElementById("Time_Worst").innerText = "O(N log N)";
     document.getElementById("Time_Average").innerText = "Θ(N log N)";
     document.getElementById("Time_Best").innerText = "Ω(N log N)";
@@ -69,7 +66,7 @@ export default class SortingVisualizer extends React.Component {
   }
 
   quickSort() {
-    ts=0;
+    ts = 0;
     document.getElementById("Time_Worst").innerText = "O(N^2)";
     document.getElementById("Time_Average").innerText = "Θ(N log N)";
     document.getElementById("Time_Best").innerText = "Ω(N log N)";
@@ -190,12 +187,12 @@ export default class SortingVisualizer extends React.Component {
   }
 
   enable_buttons() {
-    var butts_algos = document.querySelectorAll(" button");
+     var butts_algos = document.querySelectorAll(" button");
     var inp_as = document.getElementById("a_size");
     window.setTimeout(function () {
       for (var i = 0; i < butts_algos.length; i++) {
-        butts_algos[i].classList = [];
-        butts_algos[i].classList.add("butt_unselected");
+        // butts_algos[i].classList = [];
+        // butts_algos[i].classList.add("butt_unselected");
         butts_algos[i].disabled = false;
         inp_as.disabled = false;
       }
@@ -205,8 +202,9 @@ export default class SortingVisualizer extends React.Component {
     var butts_algos = document.querySelectorAll(" button");
     var inp_as = document.getElementById("a_size");
     for (var i = 0; i < butts_algos.length; i++) {
-      butts_algos[i].classList = [];
-      butts_algos[i].classList.add("butt_locked");
+      // butts_algos[i].classList = [];
+      // butts_algos[i].classList.add("butt_selected");
+      // butts_algos[i].classList.add("butt_unselected");
       butts_algos[i].disabled = true;
       inp_as.disabled = true;
     }
@@ -234,13 +232,32 @@ export default class SortingVisualizer extends React.Component {
             onChange={this.handleChange}
             onClick={() => this.resetArray()}
           ></input>
-          <button onClick={() => this.resetArray()}>Generate New Array</button>
-          <button onClick={() => this.mergeSort()}>Merge Sort</button>
+          <button className="genarr" onClick={() => this.resetArray()}>
+            Generate New Array
+          </button>
+          <select onChange={(e) => (algor = e.target.value)}>
+            <option disabled selected>
+              Select Algo
+            </option>
+            <option value="mergeSort">Merge Sort</option>
+            <option value="quickSort">Quick Sort</option>
+            <option value="heapSort">Heap Sort</option>
+            <option value="insertionSort">Insertion Sort</option>
+            <option value="selectionSort">Selection Sort</option>
+            <option value="bubbleSort">Bubble Sort</option>
+          </select>
+          <button
+            className="sortbutt"
+            onClick={() => this.handleSortSelection(algor)}
+          >
+            SORT
+          </button>
+          {/* <button onClick={() => this.mergeSort()}>Merge Sort</button>
           <button onClick={() => this.quickSort()}>Quick Sort</button>
           <button onClick={() => this.heapSort()}>Heap Sort</button>
           <button onClick={() => this.insertionSort()}>Insertion Sort</button>
           <button onClick={() => this.selectionSort()}>Selection Sort</button>
-          <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
+          <button onClick={() => this.bubbleSort()}>Bubble Sort</button> */}
         </div>
         <br></br>
         <div className="sort-container">
@@ -305,6 +322,30 @@ export default class SortingVisualizer extends React.Component {
         </div>
       </div>
     );
+  }
+  handleSortSelection(selectedSort) {
+    switch (selectedSort) {
+      case "mergeSort":
+        this.mergeSort();
+        break;
+      case "quickSort":
+        this.quickSort();
+        break;
+      case "heapSort":
+        this.heapSort();
+        break;
+      case "insertionSort":
+        this.insertionSort();
+        break;
+      case "selectionSort":
+        this.selectionSort();
+        break;
+      case "bubbleSort":
+        this.bubbleSort();
+        break;
+      default:
+        break;
+    }
   }
 }
 function randomIntFromInterval(min, max) {
